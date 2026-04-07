@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logo_png } from '../images';
 
 export const Logo: React.FC<{ className?: string }> = ({ className = "w-12 h-12" }) => {
   const [imgError, setImgError] = useState(false);
@@ -6,7 +7,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "w-12 h-12"
   if (!imgError) {
     return (
       <img 
-        src="/logo.png" 
+        src={logo_png} 
         alt="Tudo na Brasa Logo" 
         referrerPolicy="no-referrer"
         className={`${className} object-contain`}

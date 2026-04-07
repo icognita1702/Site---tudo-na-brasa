@@ -3,6 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Clock, MapPin, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { 
+  espaco_fachada_png_webp, 
+  espaco_kids_png_jpg, 
+  espaco_rustico_png_jpg, 
+  espaco_salao_png_jpg, 
+  ifood_logo_png, 
+  tripadvisor_bg_png 
+} from '../images';
 
 const Home: React.FC = () => {
   return (
