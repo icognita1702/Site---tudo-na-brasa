@@ -4,7 +4,6 @@ import { Plus } from 'lucide-react';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
 import ImageWithFallback from './ImageWithFallback';
-import { motion } from 'framer-motion';
 
 interface MenuCardProps {
   product: Product;
@@ -15,13 +14,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ product }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <motion.div 
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="group bg-neutral-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-ember/30 transition-all flex flex-col shadow-lg"
-    >
+    <div className="group bg-neutral-900/50 rounded-2xl border border-white/5 overflow-hidden hover:border-ember/30 transition-all flex flex-col shadow-lg">
       <div className="relative h-48 sm:h-56 overflow-hidden">
         <ImageWithFallback 
           src={product.image} 
@@ -62,8 +55,8 @@ const MenuCard: React.FC<MenuCardProps> = ({ product }) => {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default MenuCard;
+export default React.memo(MenuCard);

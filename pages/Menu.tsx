@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { PRODUCTS, MENU_CATEGORIES } from '../constants';
 import MenuCard from '../components/MenuCard';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,9 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Menu: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredProducts = activeCategory === 'all' 
-    ? PRODUCTS 
-    : PRODUCTS.filter(p => p.category === activeCategory);
+  const filteredProducts = useMemo(() => {
+    return activeCategory === 'all' 
+      ? PRODUCTS 
+      : PRODUCTS.filter(p => p.category === activeCategory);
+  }, [activeCategory]);
 
   return (
     <div className="pt-28 pb-24 bg-charcoal min-h-screen">
@@ -50,16 +52,20 @@ const Menu: React.FC = () => {
         </div>
 
         {/* Menu Grid */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-        >
-          <AnimatePresence mode='popLayout'>
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeCategory}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          >
             {filteredProducts.map(product => (
               <MenuCard key={product.id} product={product} />
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-20">
