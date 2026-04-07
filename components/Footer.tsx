@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a href={CONTACT_INFO.ifood} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-[#ea1d2c] transition-colors text-white overflow-hidden group">
-                <img src="/ifood-logo.png.png" alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
+                <img src="/ifood-logo.png" alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
               </a>
             </div>
           </div>
