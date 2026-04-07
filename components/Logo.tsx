@@ -1,21 +1,6 @@
-import React, { useState } from 'react';
-import { logo_png } from '../images';
+import React from 'react';
 
 export const Logo: React.FC<{ className?: string }> = ({ className = "w-12 h-12" }) => {
-  const [imgError, setImgError] = useState(false);
-
-  if (!imgError) {
-    return (
-      <img 
-        src={logo_png} 
-        alt="Tudo na Brasa Logo" 
-        referrerPolicy="no-referrer"
-        className={`${className} object-contain`}
-        onError={() => setImgError(true)}
-      />
-    );
-  }
-
   return (
     <svg viewBox="0 0 200 200" className={className} xmlns="http://www.w3.org/2000/svg">
       <defs>
