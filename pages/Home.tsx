@@ -9,7 +9,8 @@ import {
   espaco_rustico_png_jpg, 
   espaco_salao_png_jpg, 
   ifood_logo_png, 
-  tripadvisor_bg_png 
+  tripadvisor_bg_png,
+  mapa_3d_png
 } from '../images';
 
 const Home: React.FC = () => {
@@ -118,16 +119,11 @@ const Home: React.FC = () => {
               className="relative"
             >
               <div className="relative rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-black/50 transform-gpu bg-neutral-800 flex items-center justify-center">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.278912643564!2d-43.95768262496853!3d-19.91264878147171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa690a165324289%3A0x112170c937967b!2sTudo%20Na%20Brasa!5e0!3m2!1spt-BR!2sbr!4v1712434567890!5m2!1spt-BR!2sbr" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, minHeight: '400px' }} 
-                  allowFullScreen={true} 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Tudo na Brasa Location"
-                ></iframe>
+                <img 
+                  src={mapa_3d_png} 
+                  alt="Mapa 3D Tudo na Brasa" 
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent" />
 
                 {/* Address Card */}
