@@ -5,6 +5,7 @@ import { ShoppingCart, Menu, X, Flame } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
+import { ifood_logo_png } from '../images';
 
 interface HeaderProps {
   onCartOpen: () => void;
@@ -81,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ onCartOpen }) => {
             rel="noopener noreferrer"
             className="hidden md:flex items-center gap-2 bg-[#ea1d2c] hover:bg-red-700 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-red-500/20"
           >
-            <img src="/ifood-logo.png" alt="iFood" referrerPolicy="no-referrer" className="w-5 h-5 object-contain rounded-md" />
+            <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-5 h-5 object-contain rounded-md" />
             Pedir iFood
           </a>
 
