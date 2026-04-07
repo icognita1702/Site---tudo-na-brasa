@@ -44,7 +44,7 @@ const Home: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-[#ea1d2c] hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-red-500/20 hover:shadow-red-500/40 hover:-translate-y-1"
               >
-                <img src="/ifood-logo.png" alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
+                <img src="/ifood-logo.png.png" alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
                 Faça um Pedido
               </a>
               <a 
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
             >
               <div className="relative rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-black/50 transform-gpu bg-neutral-800 flex items-center justify-center">
                 <img 
-                  src="/mapa-3d.png" 
+                  src="/mapa-3d.png.png" 
                   alt="Localização" 
                   loading="lazy"
                   referrerPolicy="no-referrer"
@@ -180,7 +180,7 @@ const Home: React.FC = () => {
                   className="bg-[#34e0a1] rounded-2xl p-6 shadow-xl transform transition-transform hover:-translate-y-2 flex flex-col justify-between relative overflow-hidden"
                 >
                   <div className="absolute inset-0 opacity-20 mix-blend-multiply pointer-events-none">
-                    <img src="/tripadvisor-bg.png" alt="" loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                    <img src="/tripadvisor-bg.png.png" alt="" loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
                   </div>
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-4">
