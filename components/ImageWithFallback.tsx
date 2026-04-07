@@ -29,6 +29,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
         src={imgSrc}
         alt={alt}
         onError={handleError}
+        referrerPolicy="no-referrer"
         className={`w-full h-full object-cover transition-transform duration-500 hover:scale-110`}
       />
       {isError && (

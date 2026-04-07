@@ -21,6 +21,7 @@ const About: React.FC = () => {
               src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200" 
               className="w-full h-full object-cover" 
               alt="Grelha Tudo na Brasa" 
+              referrerPolicy="no-referrer"
             />
           </div>
 

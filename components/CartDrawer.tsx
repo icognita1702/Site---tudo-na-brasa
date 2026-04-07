@@ -123,6 +123,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                     <img 
                       src={item.image} 
                       alt={item.name} 
+                      referrerPolicy="no-referrer"
                       className="w-20 h-20 object-cover rounded-lg border border-white/10"
                     />
                     <div className="flex-1">

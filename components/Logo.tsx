@@ -8,6 +8,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "w-12 h-12"
       <img 
         src="/logo.png" 
         alt="Tudo na Brasa Logo" 
+        referrerPolicy="no-referrer"
         className={`${className} object-contain`}
         onError={() => setImgError(true)}
       />

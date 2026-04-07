@@ -13,6 +13,7 @@ const Home: React.FC = () => {
           <img 
             src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000" 
             alt="BBQ" 
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
@@ -43,7 +44,7 @@ const Home: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-[#ea1d2c] hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-red-500/20 hover:shadow-red-500/40 hover:-translate-y-1"
               >
-                <img src="/ifood-logo.png" alt="iFood" className="w-6 h-6 object-contain rounded-md" />
+                <img src="/ifood-logo.png" alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
                 Faça um Pedido
               </a>
               <a 
@@ -113,6 +114,7 @@ const Home: React.FC = () => {
                   src="/mapa-3d.png" 
                   alt="Localização" 
                   loading="lazy"
+                  referrerPolicy="no-referrer"
                   className="w-full h-[400px] object-cover opacity-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent" />
@@ -178,7 +180,7 @@ const Home: React.FC = () => {
                   className="bg-[#34e0a1] rounded-2xl p-6 shadow-xl transform transition-transform hover:-translate-y-2 flex flex-col justify-between relative overflow-hidden"
                 >
                   <div className="absolute inset-0 opacity-20 mix-blend-multiply pointer-events-none">
-                    <img src="/tripadvisor-bg.png" alt="" loading="lazy" className="w-full h-full object-cover" />
+                    <img src="/tripadvisor-bg.png" alt="" loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
                   </div>
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-4">
@@ -238,6 +240,7 @@ const Home: React.FC = () => {
                   src={item.img} 
                   alt={item.title} 
                   loading="lazy"
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
@@ -267,7 +270,7 @@ const Home: React.FC = () => {
                { name: "Executivo Alcatra na Brasa", price: "R$ 59,90", img: "https://static.ifood-static.com.br/image/upload/t_high/pratos/e23aa9f7-77de-4596-96fa-686825550bd9/202501311658_A2A4_i.jpg" },
              ].map((prod, idx) => (
                <div key={idx} className="group relative rounded-2xl overflow-hidden aspect-[4/5]">
-                  <img src={prod.img} alt={prod.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={prod.img} alt={prod.name} loading="lazy" referrerPolicy="no-referrer" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
                   <div className="absolute bottom-0 left-0 p-8">
                     <h3 className="text-2xl font-bold text-white mb-2">{prod.name}</h3>
