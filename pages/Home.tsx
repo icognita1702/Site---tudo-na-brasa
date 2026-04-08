@@ -265,22 +265,22 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=1000&auto=format&fit=crop",
+                img: "/espaco-fachada-1.png",
                 title: "Entrada e Varanda",
                 desc: "Fachada convidativa com mesas ao ar livre para aproveitar as noites de BH."
               },
               {
-                img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1000&auto=format&fit=crop",
+                img: "/espaco-salao-4.png",
                 title: "Salão Principal",
                 desc: "Espaço amplo e climatizado, perfeito para receber grupos com muito conforto."
               },
               {
-                img: "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?q=80&w=1000&auto=format&fit=crop",
+                img: "/espaco-kids-2.png",
                 title: "Espaço Kids",
                 desc: "Área de lazer completa com fliperamas e brinquedos para a diversão da criançada."
               },
               {
-                img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
+                img: "/espaco-rustico-3.png",
                 title: "Ambiente Acolhedor",
                 desc: "Decoração rústica e iluminação quente para criar momentos inesquecíveis."
               }
