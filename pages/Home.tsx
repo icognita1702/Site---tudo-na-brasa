@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Clock, MapPin, Award, MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CONTACT_INFO } from '../constants';
 import { 
   tripadvisor_bg_png,
@@ -56,25 +56,26 @@ const Home: React.FC = () => {
   return (
     <div className="pt-20 md:pt-24">
       {/* Hero */}
-      <section className="relative min-h-[75vh] flex items-start pt-4 md:pt-8 overflow-hidden pb-24">
+      <section className="relative min-h-[90vh] flex items-end pb-32 pt-32 overflow-hidden">
         <div className="absolute inset-0 z-0 overflow-hidden bg-[#0a0a0a] pointer-events-none">
           <div className="absolute inset-0 md:left-[35%] lg:left-[45%]">
-            {backgroundImages.map((img, index) => (
+            <AnimatePresence>
               <motion.div
-                key={img}
+                key={currentImageIndex}
                 className="absolute inset-0 w-full h-full"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
               >
                 <img
-                  src={img}
+                  src={backgroundImages[currentImageIndex]}
                   alt="Background"
                   className="w-full h-full object-cover object-center opacity-90"
                   referrerPolicy="no-referrer"
                 />
               </motion.div>
-            ))}
+            </AnimatePresence>
             {/* Gradient to blend the left edge of the image into the solid background */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent" />
             {/* Bottom gradient for mobile text readability */}
@@ -90,10 +91,10 @@ const Home: React.FC = () => {
             className="max-w-3xl"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight">
-              A Autêntica <span className="text-ember italic">Churrascaria e Pizzaria</span> de BH na sua Casa
+              A Autêntica <span className="text-ember italic">Churrascaria, Pizzaria e Hamburgueria</span> de BH na sua Casa
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed font-light">
-              Carnes selecionadas, fogo de verdade e pizzas artesanais. Peça agora e receba a experiência premium no conforto do seu lar.
+              Carnes selecionadas, fogo de verdade, pizzas artesanais e hambúrgueres suculentos. Peça agora e receba a experiência premium no conforto do seu lar.
             </p>
             <div className="flex flex-col sm:flex-row gap-5 flex-wrap">
               <a 
@@ -264,22 +265,22 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                img: "/espaco-fachada-1.png",
+                img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=1000&auto=format&fit=crop",
                 title: "Entrada e Varanda",
                 desc: "Fachada convidativa com mesas ao ar livre para aproveitar as noites de BH."
               },
               {
-                img: "/espaco-salao-4.png",
+                img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1000&auto=format&fit=crop",
                 title: "Salão Principal",
                 desc: "Espaço amplo e climatizado, perfeito para receber grupos com muito conforto."
               },
               {
-                img: "/espaco-kids-2.png",
+                img: "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?q=80&w=1000&auto=format&fit=crop",
                 title: "Espaço Kids",
                 desc: "Área de lazer completa com fliperamas e brinquedos para a diversão da criançada."
               },
               {
-                img: "/espaco-rustico-3.png",
+                img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
                 title: "Ambiente Acolhedor",
                 desc: "Decoração rústica e iluminação quente para criar momentos inesquecíveis."
               }
@@ -296,7 +297,6 @@ const Home: React.FC = () => {
                   src={item.img} 
                   alt={item.title} 
                   loading="lazy"
-                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
