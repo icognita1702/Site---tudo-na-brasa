@@ -26,10 +26,11 @@ const Footer: React.FC = () => {
               <a href={CONTACT_INFO.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-ember transition-colors text-white">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href={CONTACT_INFO.ifood} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-[#ea1d2c] transition-colors text-white overflow-hidden group">
-                <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
-              </a>
             </div>
+            <a href={CONTACT_INFO.ifood} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#ea1d2c]/10 hover:bg-[#ea1d2c]/20 text-[#ea1d2c] px-4 py-2 rounded-lg transition-colors font-medium text-sm w-fit mt-4">
+              <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-5 h-5 object-contain rounded-sm" />
+              Pedir no iFood
+            </a>
           </div>
 
           {/* Location */}

@@ -6,8 +6,16 @@ export const MENU_CATEGORIES: Category[] = [
   { id: 'burgers', label: 'Burgers' },
   { id: 'combos', label: 'Combos' },
   { id: 'pizzas', label: 'Pizzas' },
+  { id: 'massas', label: 'Massas e Gratinados' },
+  { id: 'refeicoes', label: 'Refeições com Churrasco' },
+  { id: 'porcoes', label: 'Porções e Petiscos' },
+  { id: 'carnes', label: 'Carnes na Brasa' },
+  { id: 'executivos', label: 'Executivos' },
   { id: 'saladas', label: 'Saladas' },
-  { id: 'sobremesas', label: 'Sobremesas' }
+  { id: 'acompanhamentos', label: 'Acompanhamentos' },
+  { id: 'caldos', label: 'Caldos' },
+  { id: 'sobremesas', label: 'Sobremesas' },
+  { id: 'bebidas', label: 'Bebidas' }
 ];
 
 export const PRODUCTS: Product[] = [
@@ -144,8 +152,48 @@ export const PRODUCTS: Product[] = [
     image: 'https://cdn.accon.app/17327313415135637843736391814-1080p.jpg',
     category: 'combos'
   },
+  {
+    id: 'comb-13',
+    name: 'Combo Tudo na Brasa em Dobro',
+    description: 'Escolha seu Combo Tudo na Brasa em Dobro.',
+    price: 84.20,
+    image: 'https://cdn.accon.app/17582876485901786047357739069-1080p.jpg',
+    category: 'combos'
+  },
 
   // Pizzas
+  {
+    id: 'piz-gigante',
+    name: 'Gigantes 8 Fatias',
+    description: 'Escolha o sabor de sua pizza GG 35 cm. Acompanha Refrigerante.',
+    price: 89.90,
+    image: 'https://cdn.accon.app/17559829709915905722256618262-1080p.jpg',
+    category: 'pizzas'
+  },
+  {
+    id: 'piz-grande',
+    name: 'Grandes 6 Fatias',
+    description: 'Escolha o sabor de sua pizza Grande 30 cm.',
+    price: 69.90,
+    image: 'https://cdn.accon.app/172366903756805280641759351101-1080p.jpg',
+    category: 'pizzas'
+  },
+  {
+    id: 'piz-media',
+    name: 'Médias 4 Fatias',
+    description: 'Escolha o sabor de sua pizza média 25 cm.',
+    price: 49.90,
+    image: 'https://cdn.accon.app/172366881049649254992369708983-1080p.jpg',
+    category: 'pizzas'
+  },
+  {
+    id: 'piz-doce',
+    name: 'Pizzas Doces',
+    description: 'Escolha o sabor da sua pizza doce.',
+    price: 45.90,
+    image: 'https://cdn.accon.app/176825807788008273633949766901-1080p.jpg',
+    category: 'pizzas'
+  },
   {
     id: 'piz-1',
     name: 'Pizza Grande Calabresa',
@@ -229,6 +277,126 @@ export const PRODUCTS: Product[] = [
     price: 10.50,
     image: 'https://cdn.accon.app/175694377563643227742378949396-1080p.jpg',
     category: 'sobremesas'
+  },
+
+  // Massas e Gratinados
+  {
+    id: 'mass-1',
+    name: 'Massas e Gratinados p/ 2 a 3 pessoas',
+    description: 'Escolha sua Massa ou Refeição.',
+    price: 89.90,
+    image: 'https://cdn.accon.app/17582207711395887193408640323-1080p.jpg',
+    category: 'massas'
+  },
+
+  // Refeições com Churrasco
+  {
+    id: 'ref-1',
+    name: 'Refeições com Churrasco p/ 2 pessoas',
+    description: 'Escolha Sua Refeição.',
+    price: 119.90,
+    image: 'https://cdn.accon.app/17582000114415149507524875838-1080p.jpg',
+    category: 'refeicoes'
+  },
+
+  // Porções e Petiscos
+  {
+    id: 'porc-1',
+    name: 'Porções e Petiscos na Brasa',
+    description: 'Escolha sua Porção.',
+    price: 45.90,
+    image: 'https://cdn.accon.app/17582003622756926966285306411-1080p.jpg',
+    category: 'porcoes'
+  },
+
+  // Carnes na Brasa
+  {
+    id: 'carn-1',
+    name: 'Carnes na Brasa (IN NATURA)',
+    description: 'Escolha sua Carne.',
+    price: 69.90,
+    image: 'https://cdn.accon.app/17619479684057958457384958615-1080p.jpg',
+    category: 'carnes'
+  },
+
+  // Executivos
+  {
+    id: 'exec-1',
+    name: 'Executivo com Churrasco',
+    description: 'Escolha seu executivo com Churrasco.',
+    price: 35.90,
+    image: 'https://cdn.accon.app/175828779570406767662553553633-1080p.jpg',
+    category: 'executivos'
+  },
+  {
+    id: 'exec-2',
+    name: 'Executivo Tudo na Brasa',
+    description: 'Escolha seu Executivo Tudo na Brasa.',
+    price: 39.90,
+    image: 'https://cdn.accon.app/1758306104856214814101235822-1080p.jpg',
+    category: 'executivos'
+  },
+
+  // Acompanhamentos
+  {
+    id: 'acomp-1',
+    name: 'Acompanhamentos',
+    description: 'Escolha seu acompanhamento.',
+    price: 15.90,
+    image: 'https://cdn.accon.app/17617540190272184816789706221-1080p.jpg',
+    category: 'acompanhamentos'
+  },
+
+  // Caldos
+  {
+    id: 'cald-1',
+    name: 'Caldos',
+    description: 'Escolha seu Caldo.',
+    price: 25.90,
+    image: 'https://cdn.accon.app/17581996721840036268484939494527-1080p.jpg',
+    category: 'caldos'
+  },
+
+  // Bebidas
+  {
+    id: 'beb-1',
+    name: 'Refrigerantes 1,5L',
+    description: 'Diversas opções de refrigerantes.',
+    price: 12.90,
+    image: 'https://cdn.accon.app/1758724112227501514179971233-1080p.jpg',
+    category: 'bebidas'
+  },
+  {
+    id: 'beb-2',
+    name: 'Refrigerante Lata 350ml',
+    description: 'Diversas opções de refrigerantes em lata.',
+    price: 6.90,
+    image: 'https://cdn.accon.app/1758725038362022326250580704476-1080p.jpg',
+    category: 'bebidas'
+  },
+  {
+    id: 'beb-3',
+    name: 'Sucos Naturais 300ml',
+    description: 'Sucos naturais feitos na hora.',
+    price: 8.90,
+    image: 'https://cdn.accon.app/17587256630803075435705545235-1080p.jpg',
+    category: 'bebidas'
+  },
+  {
+    id: 'beb-4',
+    name: 'Água Mineral 500ml',
+    description: 'Água mineral com ou sem gás.',
+    price: 4.50,
+    image: 'https://cdn.accon.app/17587259407963000361460297547-1080p.jpg',
+    category: 'bebidas'
+  },
+  {
+    id: 'beb-5',
+    name: 'H2O 500ml',
+    description: 'H2O Limão ou Limoneto.',
+    price: 6.50,
+    image: 'https://cdn.accon.app/17587371268046113861231003104-1080p.jpg',
+    category: 'bebidas'
   }
 ];
 

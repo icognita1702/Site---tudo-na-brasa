@@ -1,31 +1,85 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Star, Clock, MapPin, Award } from 'lucide-react';
+import { ArrowRight, Star, Clock, MapPin, Award, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CONTACT_INFO } from '../constants';
 import { 
-  espaco_fachada_png_webp, 
-  espaco_kids_png_jpg, 
-  espaco_rustico_png_jpg, 
-  espaco_salao_png_jpg, 
-  ifood_logo_png, 
   tripadvisor_bg_png,
   mapa_3d_png
 } from '../images';
 
+const backgroundImages = [
+  "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop", // Carne 1 (Alta Qualidade)
+  "https://cdn.accon.app/177231757792408612313131598781-1080p.jpg", // Burger - Dourado
+  "https://cdn.accon.app/17559829709915905722256618262-1080p.jpg", // Pizza - Gigantes
+  "https://cdn.accon.app/175694387447849322064917559616-1080p.jpg", // Sobremesa - Pudim
+  "https://cdn.accon.app/17619479684057958457384958615-1080p.jpg", // Carne 2 (Cardápio)
+  "https://cdn.accon.app/1732308522186995552412657682-1080p.jpg", // Burger - Ouro Preto
+  "https://cdn.accon.app/176825807788008273633949766901-1080p.jpg", // Pizza - Doce
+  "https://cdn.accon.app/176549683023612954786941618912-1080p.jpg", // Sobremesa - Panna Cotta
+  "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2000&auto=format&fit=crop", // Carne 3 (Alta Qualidade)
+  "https://cdn.accon.app/175657546447132539108321492627-1080p.jpg", // Burger - Raposão
+  "https://cdn.accon.app/172366903756805280641759351101-1080p.jpg", // Pizza - Grandes
+  "https://cdn.accon.app/17569438549258563592277819263-1080p.jpg", // Sobremesa - Mousse
+  "https://cdn.accon.app/17582000114415149507524875838-1080p.jpg", // Carne 4 (Cardápio - Refeições)
+  "https://cdn.accon.app/173230979644833203592827361583-1080p.jpg", // Burger - Serra do Curral
+  "https://cdn.accon.app/172366881049649254992369708983-1080p.jpg", // Pizza - Medias
+  "https://cdn.accon.app/17569438352202959359974154008-1080p.jpg", // Sobremesa - Serenata
+  "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?q=80&w=2000&auto=format&fit=crop", // Carne 5 (Alta Qualidade)
+  "https://cdn.accon.app/17327314331102790861658853585-1080p.jpg", // Burger - Poços de Caldas
+  "https://cdn.accon.app/175796770054806310759284060952-1080p.jpg", // Pizza - Calabresa
+  "https://cdn.accon.app/175694377563643227742378949396-1080p.jpg", // Sobremesa - Brownie
+  "https://cdn.accon.app/17582003622756926966285306411-1080p.jpg", // Porções e Petiscos
+  "https://cdn.accon.app/173273083464717292175078151573-1080p.jpg", // Burger - Tiradentes
+  "https://cdn.accon.app/17692884894766404945613718203-1080p.jpg", // Pizza - Marguerita
+  "https://acconstorage.blob.core.windows.net/acconpictures/202002141430_OWe1_t.jpg", // Salada 2
+  "https://cdn.accon.app/173230858371448239885319053166-1080p.jpg", // Burger - Serra da Canastra
+  "https://cdn.accon.app/17692880420965835370753894868-1080p.jpg", // Pizza - Milho e Bacon
+  "https://cdn.accon.app/17582207711395887193408640323-1080p.jpg", // Massas e Gratinados
+  "https://cdn.accon.app/17317078579099748096520125185-1080p.jpg", // Burger - Beagá
+  "https://cdn.accon.app/17581996721840036268484939494527-1080p.jpg", // Caldos
+  "https://cdn.accon.app/17247916863934051877613460986-1080p.jpg", // Burger - Combo Tudo na Brasa
+  "https://cdn.accon.app/17323086965009039812713166686-1080p.jpg"  // Burger - Ouro Branco
+];
+
 const Home: React.FC = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="pt-20 md:pt-24">
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden pb-24 pt-12">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000" 
-            alt="BBQ" 
-            referrerPolicy="no-referrer"
-            className="w-full h-full object-cover scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+      <section className="relative min-h-[75vh] flex items-start pt-4 md:pt-8 overflow-hidden pb-24">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[#0a0a0a] pointer-events-none">
+          <div className="absolute inset-0 md:left-[35%] lg:left-[45%]">
+            {backgroundImages.map((img, index) => (
+              <motion.div
+                key={img}
+                className="absolute inset-0 w-full h-full"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+              >
+                <img
+                  src={img}
+                  alt="Background"
+                  className="w-full h-full object-cover object-center opacity-90"
+                  referrerPolicy="no-referrer"
+                />
+              </motion.div>
+            ))}
+            {/* Gradient to blend the left edge of the image into the solid background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent" />
+            {/* Bottom gradient for mobile text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent md:hidden" />
+          </div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -35,25 +89,20 @@ const Home: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-3xl"
           >
-            <div className="flex items-center gap-3 mb-8">
-              <span className="px-4 py-1.5 bg-ember/10 border border-ember/20 text-ember rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-lg shadow-ember/5">
-                Churrascaria & Pizzaria #1 de BH
-              </span>
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-8 leading-[1.1] tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight">
               A Autêntica <span className="text-ember italic">Churrascaria e Pizzaria</span> de BH na sua Casa
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl leading-relaxed font-light">
+            <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed font-light">
               Carnes selecionadas, fogo de verdade e pizzas artesanais. Peça agora e receba a experiência premium no conforto do seu lar.
             </p>
             <div className="flex flex-col sm:flex-row gap-5 flex-wrap">
               <a 
-                href="https://www.ifood.com.br/delivery/belo-horizonte-mg/tudo-na-brasa-churrascaria-castelo/e23aa9f7-77de-4596-96fa-686825550bd9"
+                href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#ea1d2c] hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-red-500/20 hover:shadow-red-500/40 hover:-translate-y-1"
+                className="bg-[#25D366] hover:bg-[#1ebd5a] text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300 shadow-xl shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-1"
               >
-                <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-6 h-6 object-contain rounded-md" />
+                <MessageCircle className="w-6 h-6" />
                 Faça um Pedido
               </a>
               <a 
@@ -215,22 +264,22 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
-                img: espaco_fachada_png_webp,
+                img: "/espaco-fachada-1.png",
                 title: "Entrada e Varanda",
                 desc: "Fachada convidativa com mesas ao ar livre para aproveitar as noites de BH."
               },
               {
-                img: espaco_salao_png_jpg,
+                img: "/espaco-salao-4.png",
                 title: "Salão Principal",
                 desc: "Espaço amplo e climatizado, perfeito para receber grupos com muito conforto."
               },
               {
-                img: espaco_kids_png_jpg,
+                img: "/espaco-kids-2.png",
                 title: "Espaço Kids",
                 desc: "Área de lazer completa com fliperamas e brinquedos para a diversão da criançada."
               },
               {
-                img: espaco_rustico_png_jpg,
+                img: "/espaco-rustico-3.png",
                 title: "Ambiente Acolhedor",
                 desc: "Decoração rústica e iluminação quente para criar momentos inesquecíveis."
               }

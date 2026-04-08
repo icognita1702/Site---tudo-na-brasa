@@ -1,5 +1,5 @@
 {
   "name": "Remix: Tudo na Brasa - Delivery de Churrasco e Pizzas",
   "description": "Uma experiência premium de churrasco e pizzas em Belo Horizonte, com um cardápio completo de carnes nobres, pizzas artesanais e acompanhamentos tradicionais.",
-  "requestFramePermissions": []
+  "requestFramePermissions": ["geolocation"]
 }

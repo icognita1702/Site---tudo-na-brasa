@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Flame } from 'lucide-react';
+import { ShoppingCart, Menu, X, Flame, MessageCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
-import { ifood_logo_png } from '../images';
+import { CONTACT_INFO } from '../constants';
 
 interface HeaderProps {
   onCartOpen: () => void;
@@ -77,13 +77,13 @@ const Header: React.FC<HeaderProps> = ({ onCartOpen }) => {
           </button>
           
           <a
-            href="https://www.ifood.com.br/delivery/belo-horizonte-mg/tudo-na-brasa-churrascaria-castelo/e23aa9f7-77de-4596-96fa-686825550bd9"
+            href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 bg-[#ea1d2c] hover:bg-red-700 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-red-500/20"
+            className="hidden md:flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebd5a] text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-green-500/20"
           >
-            <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-5 h-5 object-contain rounded-md" />
-            Pedir iFood
+            <MessageCircle className="w-5 h-5" />
+            Pedir no WhatsApp
           </a>
 
           {/* Mobile Toggle */}
