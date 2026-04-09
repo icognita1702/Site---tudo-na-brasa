@@ -4,13 +4,48 @@
   --color-charcoal: #1a1a1a;
   --color-ember: #ff4500;
   --color-gold: #d4af37;
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #1a1a1a;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(180deg, #0a0a0a 0%, #141414 32%, #1a1a1a 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  html {
+    scrollbar-width: none;
+  }
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(255, 69, 0, 0.35);
   color: #ffffff;
 }
 
@@ -26,4 +61,13 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #ff4500;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

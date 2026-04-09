@@ -1,81 +1,165 @@
-
-import React from 'react';
-import { Instagram, Facebook, MapPin, Clock, Phone, Flame } from 'lucide-react';
-import { CONTACT_INFO } from '../constants';
-import { Logo } from './Logo';
-import { ifood_logo_png } from '../images';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Facebook,
+  Instagram,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Star,
+} from "lucide-react";
+import { CONTACT_INFO } from "../constants";
+import { Logo } from "./Logo";
+import { GOOGLE_RATING } from "../site";
 
 const Footer: React.FC = () => {
+  const phoneHref = `tel:${CONTACT_INFO.phone.replace(/[^\d+]/g, "")}`;
+
   return (
-    <footer className="bg-charcoal border-t border-white/5 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <Logo className="w-16 h-16" />
-              <span className="text-xl font-serif font-bold text-white">Tudo na Brasa</span>
-            </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              O autêntico sabor do churrasco mineiro e pizzas deliciosas, preparados com paixão para chegar quentinho na sua mesa.
-            </p>
-            <div className="flex gap-4">
-              <a href={CONTACT_INFO.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-ember transition-colors text-white">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href={CONTACT_INFO.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-ember transition-colors text-white">
-                <Facebook className="w-5 h-5" />
-              </a>
-            </div>
-            <a href={CONTACT_INFO.ifood} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#ea1d2c]/10 hover:bg-[#ea1d2c]/20 text-[#ea1d2c] px-4 py-2 rounded-lg transition-colors font-medium text-sm w-fit mt-4">
-              <img src={ifood_logo_png} alt="iFood" referrerPolicy="no-referrer" className="w-5 h-5 object-contain rounded-sm" />
-              Pedir no iFood
-            </a>
-          </div>
+    <footer className="border-t border-white/5 bg-charcoal pt-16 pb-8">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-10 rounded-[2rem] border border-white/8 bg-black/25 p-6 md:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="space-y-5">
+              <div className="flex items-center gap-3">
+                <Logo className="h-16 w-16" />
+                <div>
+                  <p className="font-serif text-2xl font-bold text-white">
+                    Tudo na Brasa
+                  </p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-gold">
+                    Carnes e Pizzas
+                  </p>
+                </div>
+              </div>
 
-          {/* Location */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Onde Estamos</h4>
-            <div className="flex gap-3 text-gray-400">
-              <MapPin className="w-5 h-5 text-ember shrink-0" />
-              <p className="text-sm">{CONTACT_INFO.address}</p>
-            </div>
-            <div className="flex gap-3 text-gray-400">
-              <Phone className="w-5 h-5 text-ember shrink-0" />
-              <p className="text-sm">{CONTACT_INFO.phone}</p>
-            </div>
-          </div>
+              <p className="max-w-2xl text-sm leading-7 text-gray-400 md:text-base">
+                Churrasco, pizzas artesanais, burgers e um ambiente acolhedor
+                para reunir a família no Castelo, em Belo Horizonte.
+              </p>
 
-          {/* Hours */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Horários</h4>
-            <div className="flex gap-3 text-gray-400">
-              <Clock className="w-5 h-5 text-ember shrink-0" />
-              <p className="text-sm">{CONTACT_INFO.hours}</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#1ebd5a]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Pedir no WhatsApp
+                </a>
+                <a
+                  href={CONTACT_INFO.getin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-ember px-5 py-3 text-sm font-bold text-white transition hover:bg-orange-600"
+                >
+                  Reservar mesa
+                </a>
+                <a
+                  href={CONTACT_INFO.googleReviews}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:border-ember/40 hover:bg-white/10"
+                >
+                  <Star className="h-4 w-4 text-gold" />
+                  {GOOGLE_RATING.label}
+                </a>
+              </div>
             </div>
-          </div>
 
-          {/* Newsletter */}
-          <div className="space-y-6">
-            <h4 className="text-white font-bold uppercase tracking-widest text-sm">Fique por dentro</h4>
-            <p className="text-gray-400 text-sm">Receba promoções exclusivas.</p>
-            <div className="flex">
-              <input 
-                type="email" 
-                placeholder="Seu email" 
-                className="bg-neutral-800 border-none rounded-l-lg px-4 py-2 text-sm w-full focus:ring-1 focus:ring-ember outline-none"
-              />
-              <button className="bg-ember text-white px-4 py-2 rounded-r-lg font-bold text-sm">
-                OK
-              </button>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-4">
+                <h4 className="text-sm font-bold uppercase tracking-[0.25em] text-white">
+                  Acesso rápido
+                </h4>
+                <div className="grid gap-3 text-sm text-gray-400">
+                  <Link to="/cardapio" className="transition hover:text-white">
+                    Ver cardápio
+                  </Link>
+                  <Link to="/sobre" className="transition hover:text-white">
+                    Conhecer a casa
+                  </Link>
+                  <Link to="/contato" className="transition hover:text-white">
+                    Contato e reservas
+                  </Link>
+                  <a
+                    href={CONTACT_INFO.ifood}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-white"
+                  >
+                    Pedir pelo iFood
+                  </a>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="text-sm font-bold uppercase tracking-[0.25em] text-white">
+                  Contato
+                </h4>
+                <div className="grid gap-4 text-sm text-gray-400">
+                  <a
+                    href={CONTACT_INFO.maps}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-3 transition hover:text-white"
+                  >
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-ember" />
+                    <span>{CONTACT_INFO.address}</span>
+                  </a>
+
+                  <a
+                    href={phoneHref}
+                    className="flex items-center gap-3 transition hover:text-white"
+                  >
+                    <Phone className="h-4 w-4 shrink-0 text-ember" />
+                    <span>{CONTACT_INFO.phone}</span>
+                  </a>
+
+                  <p className="text-sm text-gray-400">{CONTACT_INFO.hours}</p>
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href={CONTACT_INFO.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram do Tudo na Brasa"
+                    className="flex h-12 w-12 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-neutral-800 text-white transition hover:bg-ember"
+                  >
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                  <a
+                    href={CONTACT_INFO.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook do Tudo na Brasa"
+                    className="flex h-12 w-12 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-neutral-800 text-white transition hover:bg-ember"
+                  >
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 text-center">
-          <p className="text-neutral-500 text-xs">
-            © {new Date().getFullYear()} Tudo na Brasa. Belo Horizonte, MG. Todos os direitos reservados.
+        <div className="flex flex-col gap-3 border-t border-white/5 pt-8 text-center text-xs text-neutral-500 md:flex-row md:items-center md:justify-between md:text-left">
+          <p>
+            © {new Date().getFullYear()} Tudo na Brasa. Belo Horizonte, MG.
+            Todos os direitos reservados.
           </p>
+          <a
+            href={CONTACT_INFO.maps}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 text-neutral-400 transition hover:text-white md:justify-start"
+          >
+            Abrir rota no Google Maps
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
       </div>
     </footer>

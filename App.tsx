@@ -1,15 +1,19 @@
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import CartDrawer from "./components/CartDrawer";
+import { CartProvider } from "./context/CartContext";
 
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import CartDrawer from './components/CartDrawer';
-import { CartProvider } from './context/CartContext';
-
-const Home = lazy(() => import('./pages/Home'));
-const Menu = lazy(() => import('./pages/Menu'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
+const Home = lazy(() => import("./pages/Home"));
+const Menu = lazy(() => import("./pages/Menu"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -34,7 +38,7 @@ const App: React.FC = () => {
         <ScrollToTop />
         <div className="flex flex-col min-h-screen">
           <Header onCartOpen={() => setIsCartOpen(true)} />
-          
+
           <main className="flex-grow">
             <Suspense fallback={<PageLoader />}>
               <Routes>
@@ -48,9 +52,9 @@ const App: React.FC = () => {
 
           <Footer />
 
-          <CartDrawer 
-            isOpen={isCartOpen} 
-            onClose={() => setIsCartOpen(false)} 
+          <CartDrawer
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
           />
         </div>
       </Router>

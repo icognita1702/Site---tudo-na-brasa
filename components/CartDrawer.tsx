@@ -1,159 +1,188 @@
-
-import React, { useState, useEffect } from 'react';
-import { X, ShoppingBag, Plus, Minus, Trash2, MapPin } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { CONTACT_INFO } from '../constants';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { MapPin, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { CONTACT_INFO } from "../constants";
 
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const INITIAL_ADDRESS = "Buscando localização...";
+
 const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
-  const { cart, updateQuantity, removeItem, totalPrice, totalItems } = useCart();
-  const [address, setAddress] = useState<string>('Buscando localização...');
+  const { cart, updateQuantity, removeItem, totalPrice } = useCart();
+  const [address, setAddress] = useState<string>(INITIAL_ADDRESS);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
 
   useEffect(() => {
-    if (isOpen && address === 'Buscando localização...') {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            try {
-              const { latitude, longitude } = position.coords;
-              const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
-              const data = await response.json();
-              
-              if (data && data.address) {
-                const street = data.address.road || data.address.pedestrian || '';
-                const suburb = data.address.suburb || data.address.neighbourhood || '';
-                const city = data.address.city || data.address.town || '';
-                
-                const formattedAddress = [street, suburb, city].filter(Boolean).join(', ');
-                setAddress(formattedAddress || 'Endereço não encontrado');
-                
-                // Simple logic for delivery fee based on neighborhood
-                if (suburb.toLowerCase().includes('castelo')) {
-                  setDeliveryFee(0); // Free delivery in Castelo
-                } else {
-                  setDeliveryFee(8.90); // Default fee
-                }
-              } else {
-                setAddress('Não foi possível obter o endereço');
-                setDeliveryFee(8.90);
-              }
-            } catch (error) {
-              setAddress('Erro ao buscar localização');
-              setDeliveryFee(8.90);
-            }
-          },
-          (error) => {
-            setAddress('Localização não permitida pelo navegador');
-            setDeliveryFee(8.90);
-          }
-        );
-      } else {
-        setAddress('Geolocalização não suportada');
-        setDeliveryFee(8.90);
-      }
+    if (!isOpen || address !== INITIAL_ADDRESS) {
+      return;
     }
-  }, [isOpen, address]);
+
+    if (!("geolocation" in navigator)) {
+      setAddress("Geolocalização não suportada");
+      setDeliveryFee(8.9);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+          );
+          const data = await response.json();
+
+          if (data && data.address) {
+            const street = data.address.road || data.address.pedestrian || "";
+            const suburb =
+              data.address.suburb || data.address.neighbourhood || "";
+            const city = data.address.city || data.address.town || "";
+            const formattedAddress = [street, suburb, city]
+              .filter(Boolean)
+              .join(", ");
+
+            setAddress(formattedAddress || "Endereço não encontrado");
+            setDeliveryFee(suburb.toLowerCase().includes("castelo") ? 0 : 8.9);
+            return;
+          }
+
+          setAddress("Não foi possível obter o endereço");
+          setDeliveryFee(8.9);
+        } catch {
+          setAddress("Erro ao buscar localização");
+          setDeliveryFee(8.9);
+        }
+      },
+      () => {
+        setAddress("Localização não permitida pelo navegador");
+        setDeliveryFee(8.9);
+      },
+    );
+  }, [address, isOpen]);
 
   const finalTotal = totalPrice + deliveryFee;
 
   const handleCheckout = () => {
     const itemsList = cart
-      .map(item => `• ${item.quantity}x ${item.name} (R$ ${(item.price * item.quantity).toFixed(2)})`)
-      .join('%0A');
-    
-    const message = `Olá! Gostaria de fazer um pedido:%0A%0A${itemsList}%0A%0A*Subtotal: R$ ${totalPrice.toFixed(2)}*%0A*Taxa de Entrega: R$ ${deliveryFee.toFixed(2)}*%0A*Total: R$ ${finalTotal.toFixed(2)}*%0A%0AEndereço de entrega: ${address !== 'Buscando localização...' && address !== 'Localização não permitida pelo navegador' ? address : '_(digite seu endereço)_'}`;
-    const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
+      .map(
+        (item) =>
+          `• ${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`,
+      )
+      .join("\n");
+
+    const message = [
+      "Olá! Quero finalizar este pedido:",
+      "",
+      itemsList,
+      "",
+      `Subtotal: R$ ${totalPrice.toFixed(2)}`,
+      `Taxa de entrega: ${deliveryFee === 0 ? "Grátis" : `R$ ${deliveryFee.toFixed(2)}`}`,
+      `Total: R$ ${finalTotal.toFixed(2)}`,
+      "",
+      `Endereço de entrega: ${address !== INITIAL_ADDRESS ? address : "vou informar meu endereço no atendimento"}`,
+    ].join("\n");
+
+    window.open(
+      `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
           />
-          
-          {/* Drawer */}
+
           <motion.div
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-md bg-charcoal border-l border-white/10 z-[70] flex flex-col shadow-2xl"
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed right-0 top-0 z-[70] flex h-full w-full sm:max-w-md flex-col border-l border-white/10 bg-charcoal shadow-2xl"
           >
-            <div className="p-6 border-b border-white/5 flex items-center justify-between">
+            <div className="flex items-center justify-between border-b border-white/5 p-6">
               <div className="flex items-center gap-3">
-                <ShoppingBag className="text-ember w-6 h-6" />
-                <h2 className="text-xl font-bold text-white">Seu Pedido</h2>
+                <ShoppingBag className="h-6 w-6 text-ember" />
+                <h2 className="text-xl font-bold text-white">Seu pedido</h2>
               </div>
-              <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors">
-                <X className="w-6 h-6 text-gray-400" />
+              <button
+                onClick={onClose}
+                className="rounded-full p-2 transition-colors hover:bg-white/5"
+              >
+                <X className="h-6 w-6 text-gray-400" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 space-y-6 overflow-y-auto p-6">
               {cart.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center">
-                    <ShoppingBag className="w-10 h-10 text-neutral-600" />
+                <div className="flex h-full flex-col items-center justify-center space-y-4 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-neutral-800">
+                    <ShoppingBag className="h-10 w-10 text-neutral-600" />
                   </div>
-                  <p className="text-gray-400">Seu carrinho está vazio.</p>
-                  <button 
+                  <p className="text-gray-400">
+                    Seu carrinho ainda está vazio.
+                  </p>
+                  <button
                     onClick={onClose}
-                    className="text-ember font-bold hover:underline"
+                    className="font-bold text-ember hover:underline"
                   >
                     Ver cardápio
                   </button>
                 </div>
               ) : (
                 cart.map((item) => (
-                  <div key={item.id} className="flex gap-4 group">
-                    <img 
-                      src={item.image} 
-                      alt={item.name} 
+                  <div key={item.id} className="group flex gap-4">
+                    <img
+                      src={item.image}
+                      alt={item.name}
                       referrerPolicy="no-referrer"
-                      className="w-20 h-20 object-cover rounded-lg border border-white/10"
+                      className="h-20 w-20 rounded-lg border border-white/10 object-cover"
                     />
                     <div className="flex-1">
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-white font-medium">{item.name}</h3>
-                        <button 
+                      <div className="flex items-start justify-between">
+                        <h3 className="font-medium text-white">{item.name}</h3>
+                        <button
                           onClick={() => removeItem(item.id)}
-                          className="text-neutral-600 hover:text-red-500 p-1"
+                          className="p-1 text-neutral-600 hover:text-red-500"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="h-4 w-4" />
                         </button>
                       </div>
-                      <p className="text-ember font-bold text-sm mt-1">R$ {item.price.toFixed(2)}</p>
-                      
-                      <div className="flex items-center gap-3 mt-3">
-                        <div className="flex items-center bg-neutral-800 rounded-lg p-1">
-                          <button 
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="p-1 hover:text-ember transition-colors"
+                      <p className="mt-1 text-sm font-bold text-ember">
+                        R$ {item.price.toFixed(2)}
+                      </p>
+
+                      <div className="mt-3 flex items-center gap-3">
+                        <div className="flex items-center rounded-lg bg-neutral-800 p-1">
+                          <button
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity - 1)
+                            }
+                            className="p-1 transition-colors hover:text-ember"
                           >
-                            <Minus className="w-4 h-4" />
+                            <Minus className="h-4 w-4" />
                           </button>
                           <span className="w-8 text-center text-sm font-bold text-white">
                             {item.quantity}
                           </span>
-                          <button 
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-1 hover:text-ember transition-colors"
+                          <button
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity + 1)
+                            }
+                            className="p-1 transition-colors hover:text-ember"
                           >
-                            <Plus className="w-4 h-4" />
+                            <Plus className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
@@ -164,31 +193,35 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
             </div>
 
             {cart.length > 0 && (
-              <div className="p-6 border-t border-white/5 space-y-4 bg-neutral-900/50">
-                <div className="flex justify-between text-gray-400 text-sm">
+              <div className="space-y-4 border-t border-white/5 bg-neutral-900/50 p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+                <div className="flex justify-between text-sm text-gray-400">
                   <span>Subtotal</span>
                   <span>R$ {totalPrice.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-gray-400 text-sm">
+
+                <div className="flex justify-between text-sm text-gray-400">
                   <div className="flex flex-col">
-                    <span>Taxa de Entrega</span>
-                    <span className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                      <MapPin className="w-3 h-3" />
+                    <span>Taxa de entrega</span>
+                    <span className="mt-1 flex items-center gap-1 text-xs text-gray-500">
+                      <MapPin className="h-3 w-3" />
                       {address}
                     </span>
                   </div>
-                  <span className="text-green-500 font-medium">
-                    {deliveryFee === 0 ? 'Grátis' : `R$ ${deliveryFee.toFixed(2)}`}
+                  <span className="font-medium text-green-500">
+                    {deliveryFee === 0
+                      ? "Grátis"
+                      : `R$ ${deliveryFee.toFixed(2)}`}
                   </span>
                 </div>
-                <div className="flex justify-between text-white font-bold text-xl pt-2 border-t border-white/5">
+
+                <div className="flex justify-between border-t border-white/5 pt-2 text-xl font-bold text-white">
                   <span>Total</span>
                   <span className="text-gold">R$ {finalTotal.toFixed(2)}</span>
                 </div>
-                
-                <button 
+
+                <button
                   onClick={handleCheckout}
-                  className="w-full bg-ember hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-ember/20 transition-all active:scale-95 flex items-center justify-center gap-2"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-ember py-4 font-bold text-white shadow-lg shadow-ember/20 transition-all active:scale-95 hover:bg-orange-600"
                 >
                   Finalizar no WhatsApp
                 </button>

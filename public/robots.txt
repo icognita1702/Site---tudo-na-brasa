@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://site-tudo-na-brasa.pages.dev/sitemap.xml
